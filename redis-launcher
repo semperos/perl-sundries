@@ -1,0 +1,16 @@
+#!/usr/bin/env perl
+use warnings;
+use strict;
+use Daemon::Control;
+
+Daemon::Control->new({
+    name        => "Redis Server",
+    program     => '/usr/local/bin/redis-server',
+    program_args => [ '/usr/local/etc/redis.conf' ],
+
+    pid_file    => '/tmp/redis-daemon.pid',
+    stderr_file => '/tmp/redis-err.out',
+    stdout_file => '/tmp/redis-out.out',
+
+    fork        => 2,
+})->run;
